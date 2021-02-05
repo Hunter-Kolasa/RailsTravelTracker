@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :logged_in_user, only: [:show]
+    before_action :logged_in_user, :current_user, only: [:show, :edit, :create]
     def new
         @user = User.new
     end
@@ -16,13 +16,19 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user = User.find_by(id: session[:user_id])
+    end
+
+    def edit
+    end
+
+    def create
     end
 
     private
 
     def user_params
-        params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation)
+        params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation,
+            vacation_attributes: [:title, :description, :date])
     end
 
     

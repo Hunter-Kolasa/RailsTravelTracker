@@ -1,0 +1,32 @@
+<h1>Add Your New Vacation</h1>
+<%= form_with model: @vacation do |f| %>
+    <br>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <br>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+    <br>
+    <%= f.label :date %>
+    <%= f.date_field :date %>
+    <br>
+    <br>
+    <h3> Add Some Stops on Your Trip </h3>
+    <p> Need Recommendations? </p
+    <%= f.collection_check_boxes(:destination_ids, Destination.all, :id, :city) %>
+<p><%= f.submit %></p>
+<%= form_with model: @destination, url: edit_vacation_path(@vacation) do |f| %>
+    <br>
+    <%= f.label :city %>
+    <%= f.text_field :city %>
+    <br>
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+    <br>
+    <%= f.label :country %>
+    <%= f.text_field :country %>
+    <br>
+<p><%= f.submit %></p>
+    <% end %> 
+     
+        

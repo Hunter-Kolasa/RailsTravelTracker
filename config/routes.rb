@@ -7,16 +7,14 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy', as: 'logout'
 
   resources :users, only: [:new, :create], path_names: {new: 'signup'}
-  
+
   resources :users, only: [:show] do
-    resources :vacations, only: [:show, :index]
-  end
-  resources :vacations, only: [:show] do
-    resources :destinations, only: [:show, :index]
+    resources :vacations, only: [:show, :edit, :update, :index]
   end
   
 
   resources :vacations
+  
   resources :destinations
   
   root 'destinations#index'

@@ -9,6 +9,14 @@ class DestinationsController < ApplicationController
     end
 
     def create
+        @destination = @vacation.destination.build(destination_params)
+        if @destination.save
+            flash[:success] = "Destination Created!"
+            redirect_to edit_vacation_path(@vacation)
+        else
+            render :new
+        end
+
     end
 
     def show
@@ -27,6 +35,6 @@ class DestinationsController < ApplicationController
     end
 
     def destination_params
-        params.require(:destination).permit(:name, :location, :rating)
+        params.require(:destination).permit(:country, :state, :city, vacation_ids: [])
     end
 end

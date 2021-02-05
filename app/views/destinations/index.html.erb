@@ -2,7 +2,7 @@
 <h3> Members have visited: </h3>
     <ul>
         <% @destinations.each do |d| %>
-            <li><%= link_to d.location, destination_path(d) %></li>
+            <li><%= link_to city_state_country(d), destination_path(d) %></li>
         <% end %>
     </ul>
 <br>
