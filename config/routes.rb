@@ -1,12 +1,23 @@
 Rails.application.routes.draw do
+  
+  get '/signup' => 'users#new', as: 'signup'
+  post '/signup' => 'users#create'
+  get '/login' => 'sessions#new', as: 'login'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy', as: 'logout'
+
+  resources :users, only: [:new, :create], path_names: {new: 'signup'}
+  
   resources :users, only: [:show] do
     resources :vacations, only: [:show, :index]
   end
   resources :vacations, only: [:show] do
     resources :destinations, only: [:show, :index]
   end
-  resources :vacations, only: [:index, :show, :new, :create, :edit, :update]
-  resources :destinations, only: [:index, :show, :new, :create, :edit, :update]
+  
+
+  resources :vacations
+  resources :destinations
   
   root 'destinations#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
