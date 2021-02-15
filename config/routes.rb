@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get '/auth/facebook/callback' => 'sessions#create' 
   get '/signup' => 'users#new', as: 'signup'
   post '/signup' => 'users#create'
   get '/login' => 'sessions#new', as: 'login'
@@ -14,7 +15,6 @@ Rails.application.routes.draw do
   
 
   resources :vacations
-  
   resources :destinations
   
   root 'destinations#index'
