@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :logged_in_user, :current_user, only: [:show, :edit, :create]
+    before_action :current_user, only: [:show]
     def new
         @user = User.new
     end
@@ -8,8 +8,8 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             log_in @user
-            flash[:success] = "Success! Welcome #{full_name(@user)}!"
-            redirect_to @user
+            flash[:success] = "Success! Welcome #{@user.first_name}!"
+            redirect_to user_path(@user)
         else
             render :new
         end
@@ -21,14 +21,11 @@ class UsersController < ApplicationController
     def edit
     end
 
-    def create
-    end
-
     private
 
     def user_params
         params.require(:user).permit(:username, :first_name, :last_name, :email, :password, :password_confirmation,
-            vacation_attributes: [:title, :description, :date])
+            vacation_attributes: [:title, :description, :date, :public])
     end
 
     
